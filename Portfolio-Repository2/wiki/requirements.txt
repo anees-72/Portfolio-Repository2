@@ -4,3 +4,4 @@ pathlib==1.0.1
 PyMySQL==1.1.1
 sqlparse==0.5.3
 whitenoise==6.9.0
+python-decouple==3.8
