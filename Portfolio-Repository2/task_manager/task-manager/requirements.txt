@@ -1,5 +1,6 @@
-Flask
-Flask-Session
-Flask-SQLAlchemy
-Flask-Migrate
-python-decouple
+Flask==3.1.0
+Flask-Session==0.8.0
+Flask-SQLAlchemy==3.1.1
+Flask-Migrate==4.1.0
+python-decouple==3.8
+pymysql==1.1.1
