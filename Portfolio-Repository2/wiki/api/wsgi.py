@@ -9,11 +9,12 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 
 import os
 from django.core.wsgi import get_wsgi_application
-from serverless_wsgi import handle_request  
+from serverless_wsgi import handle_request
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wiki.settings")
 application = get_wsgi_application()
 
-
 def app(event, context):
-    return handle_request(application, event, context)  
+    
+    event["headers"] = event.get("headers", {})
+    return handle_request(application, event, context)
