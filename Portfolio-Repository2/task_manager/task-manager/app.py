@@ -248,5 +248,5 @@ def get_tasks():
 def get_tasks_calendar():
     return render_template("calender.html")
 
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+   # app.run(debug=True)
