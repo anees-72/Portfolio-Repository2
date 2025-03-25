@@ -16,10 +16,11 @@ application = get_wsgi_application()
 
 def app(event, context):
     
-    event = {
-        "httpMethod": event.get("method", "GET"),  
-        "path": event.get("path", "/"),
-        "headers": event.get("headers", {}),
-        "queryStringParameters": event.get("query", {}),
-    }
-    return handle_request(application, event, context)
+    event["headers"] = event.get("headers", {})
+    event["headers"]["Host"] = event.get("headers", {}).get("Host", "wiki-lovat-tau.vercel.app") 
+    
+
+    response = handle_request(application, event, context)
+    if isinstance(response["body"], str):
+        response["body"] = response["body"].encode()  
+    return response
