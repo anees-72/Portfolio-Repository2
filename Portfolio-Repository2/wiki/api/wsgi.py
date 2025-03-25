@@ -16,5 +16,6 @@ application = get_wsgi_application()
 
 def app(event, context):
     
-    event["headers"] = event.get("headers", {})
+    event["path"] = event.get("path", "/")  
+    event["headers"] = event.get("headers", {})  
     return handle_request(application, event, context)
