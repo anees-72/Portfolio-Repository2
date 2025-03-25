@@ -16,6 +16,10 @@ application = get_wsgi_application()
 
 def app(event, context):
     
-    event["path"] = event.get("path", "/")  
-    event["headers"] = event.get("headers", {})  
+    event = {
+        "httpMethod": event.get("method", "GET"),  
+        "path": event.get("path", "/"),
+        "headers": event.get("headers", {}),
+        "queryStringParameters": event.get("query", {}),
+    }
     return handle_request(application, event, context)
