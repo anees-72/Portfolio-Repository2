@@ -8,11 +8,12 @@ https://docs.djangoproject.com/en/3.0/howto/deployment/wsgi/
 """
 
 import os
-from serverless_wsgi import handle_request
 from django.core.wsgi import get_wsgi_application
-import sys
-sys.path.append(os.path.dirname(os.path.dirname(__file__)))  # Fix module resolution
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wiki.settings')
+from serverless_wsgi import handle_request  
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wiki.settings")
 application = get_wsgi_application()
-app = handle_request(application)
+
+
+def app(event, context):
+    return handle_request(application, event, context)  
