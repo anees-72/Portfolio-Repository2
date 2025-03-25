@@ -1,6 +1,28 @@
 {
-    "routes": [
-      { "src": "/static/wiki/(.*)", "dest": "/encyclopedia/$1" ,"headers":{"Cache-Control":"public,max-age=1209600,immutable"}},
-      { "src": "/(.*)", "dest": "/api/wsgi.py" }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/wsgi.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "public/encyclopedia/styles.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "public/encyclopedia/script.js",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/static/(.*)", 
+      "dest": "/public/encyclopedia/$1",
+      "headers": { "Cache-Control": "public,max-age=1209600,immutable" }
+    },
+    { 
+      "src": "/(.*)", 
+      "dest": "/api/wsgi.py" 
+    }
+  ]
+}
