@@ -18,8 +18,9 @@ def app(event, context):
     
     event["headers"] = event.get("headers", {})
     event["headers"]["Host"] = event.get("headers", {}).get("Host", "wiki-lovat-tau.vercel.app") 
-    
-
+    event["path"]=event.get("path","/")
+    event["httpMethod"]=event.get("httpMethod","GET")
+    event["queryStringParameters"]=event.get("queryStringParameters",{})
     response = handle_request(application, event, context)
     if isinstance(response["body"], str):
         response["body"] = response["body"].encode()  
