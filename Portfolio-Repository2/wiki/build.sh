@@ -7,4 +7,5 @@ pip3 install -r requirements.txt
 python3 manage.py collectstatic --noinput
 
 # Copy files to Vercel's output directory
+cp -r public/ /vercel/output/
 cp -r wiki/ /vercel/output/
