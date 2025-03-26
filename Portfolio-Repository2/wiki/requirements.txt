@@ -5,4 +5,4 @@ sqlparse==0.5.3
 whitenoise==6.9.0
 python-decouple==3.8
 markdown==3.7
-serverless_wsgi==3.0.5
+
