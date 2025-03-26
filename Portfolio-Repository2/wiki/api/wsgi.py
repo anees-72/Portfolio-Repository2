@@ -13,27 +13,33 @@ from serverless_wsgi import handle_request
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wiki.settings")
 application = get_wsgi_application()
 
+
+import os
+from django.core.wsgi import get_wsgi_application
+from serverless_wsgi import handle_request
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wiki.settings")
+application = get_wsgi_application()
+
 def app(event, context):
     
     headers = event.get("headers", {})
-    current_domain = headers.get("Host", "wiki-au69t1ppm-anees-72s-projects.vercel.app")
+    headers["Host"] = headers.get("Host", "wiki-5b2ct87ed-anees-72s-projects.vercel.app")
     
     event = {
         "path": event.get("path", "/"),
         "httpMethod": event.get("httpMethod", "GET").upper(),
-        "headers": {
-            **headers,
-            "Host": current_domain,
-            "Content-Type": headers.get("Content-Type", "text/plain")
-        },
+        "headers": headers,
         "queryStringParameters": event.get("queryStringParameters", {})
     }
 
-    
     response = handle_request(application, event, context)
     
 
     body = response.get("body", b"")
-    response["body"] = body.encode() if isinstance(body, str) else body
+    if isinstance(body, str):
+        response["body"] = body.encode("utf-8")
+    else:
+        response["body"] = bytes(body)  
     
     return response
