@@ -15,23 +15,23 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wiki.settings")
 application = get_wsgi_application()
 
 def app(event, context):
+    headers = event.get("headers", {})
+    host = headers.get("Host", "")
+    
+    
+    if not host or not any(
+        host.endswith(domain) 
+        for domain in ['.vercel.app', 'localhost']
+    ):
+        host = "wiki-hom18ucgt-anees-72s-projects.vercel.app" 
     
     event = {
         "path": event.get("path", "/"),
         "httpMethod": event.get("httpMethod", "GET"),
-        "headers": {
-            **event.get("headers", {}),
-            "Host": event.get("headers", {}).get("Host", "")  
-        },
+        "headers": {**headers, "Host": host},
         "queryStringParameters": event.get("queryStringParameters", {})
     }
-
     
     response = handle_request(application, event, context)
-    
-    
-    if isinstance(response.get("body"), str):
-        response["body"] = response["body"].encode('utf-8')
-    response["body"] = response.get("body", b"")  
-    
+    response["body"] = response.get("body", b"").encode() if isinstance(response.get("body"), str) else response.get("body", b"")
     return response
