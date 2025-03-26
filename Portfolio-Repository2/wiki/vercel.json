@@ -4,7 +4,7 @@
     { 
       "src": "/static/encyclopedia/(.*)", 
       "dest": "/encyclopedia/$1",
-      "headers": { "Cache-Control": "public,max-age=1209600,immutable" }
+      "headers": { "Cache-Control": "public,max-age=3600,must-revalidate" }
     },
     { 
       "src": "/(.*)", 
