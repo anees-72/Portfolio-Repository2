@@ -3,7 +3,7 @@
   "routes": [
     { 
       "src": "/static/encyclopedia/(.*)", 
-      "dest": "/public/encyclopedia/$1",
+      "dest": "/encyclopedia/$1",
       "headers": { "Cache-Control": "public,max-age=1209600,immutable" }
     },
     { 
