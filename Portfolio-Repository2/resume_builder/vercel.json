@@ -1,0 +1,15 @@
+{
+  
+    "routes": [
+      { 
+        "src": "/static/resumes/(.*)", 
+        "dest": "/resumes/$1",
+        "headers": { "Cache-Control": "public,max-age=3600,must-revalidate" }
+      },
+      { 
+        "src": "/(.*)", 
+        "dest": "/api/wsgi.py" 
+      }
+    ]
+  }
+  

@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        h3, h4, h5, .section-title { font-family: 'Montserrat', sans-serif; }
+        .sidebar { background: linear-gradient(135deg, #2c3e50, #1a252f); min-height: 100%; }
+        .profile-img { height: 130px; width: 130px; object-fit: cover; border: 3px solid rgba(255,255,255,0.2); }
+        .section-title { border-bottom: 2px solid #0d6efd; }
+        .sidebar .section-title { border-bottom-color: rgba(255,255,255,0.3); }
+        .timeline-item { border-left: 2px solid #dee2e6; padding-left: 20px; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #0d6efd; }
+        .contact-icon { width: 32px; height: 32px; background: rgba(255,255,255,0.1); }
+
+        @media print {
+            .row { display: block; width: 100%; }
+            .sidebar { width: 30%; margin-top: 2%; float: left; position: static; margin-right: 1%; page-break-inside: avoid; min-height:100%;}
+            .col-md-8 { width: 69%; float: left; position: static; page-break-inside: avoid; }
+            .shadow, .shadow-sm { box-shadow: none !important; }
+            body { background-color: white; font-size:20px; }
+            .bg-white { background-color: white !important; }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-4">
+        <div class="row g-0 shadow rounded overflow-hidden">
+            <!-- Sidebar -->
+            <div class="col-md-4 sidebar text-white p-4">
+                <div class="text-center mb-4">
+                    <img src="https://glorious-memory-g459jr6gx7q7f7jv-8000.app.github.dev/{% if resume.photo %}{{resume.photo.url}}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle profile-img mb-3 shadow">
+                    <h4 class="fw-bold">{{ resume.name }}</h4>
+                    <p class="text-white-50 mb-0">Software Engineer</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="section-title pb-2 mb-3">Professional Summary</h5>
+                    <p class="fw-light small">{{resume.summary|safe}}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="section-title pb-2 mb-3"><i class="bi bi-person-lines-fill me-2"></i>Contact</h5>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="contact-icon rounded-circle d-flex align-items-center justify-content-center me-2">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <span class="small">{{ resume.email }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="contact-icon rounded-circle d-flex align-items-center justify-content-center me-2">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <span class="small">{{ resume.phone }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="contact-icon rounded-circle d-flex align-items-center justify-content-center me-2">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <span class="small">{{ resume.location|default:"" }}</span>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="contact-icon rounded-circle d-flex align-items-center justify-content-center me-2">
+                            <i class="bi bi-linkedin"></i>
+                        </div>
+                        <span class="small">{{ resume.linkedin|default:"" }}</span>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="section-title pb-2 mb-3"><i class="bi bi-tools me-2"></i>Technical Skills</h5>
+                    {% for skill in resume.skills_list %}
+                        <span class="badge bg-primary rounded-pill px-3 py-2 m-1">{{ skill }}</span>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="section-title pb-2 mb-3"><i class="bi bi-globe me-2"></i>Languages</h5>
+                    {% for language in resume.languages_list %}
+                        <span class="badge bg-secondary rounded-pill px-3 py-2 m-1">{{ language }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-8 bg-white p-4">
+                <div class="mb-4">
+                    <h4 class="section-title text-primary pb-2 mb-4"><i class="bi bi-mortarboard-fill me-2"></i>Education</h4>
+                    {% for edu in educations %}
+                        <div class="timeline-item mb-3 pb-3">
+                            <h5 class="fw-bold mb-1">{{ edu.degree }}</h5>
+                            <p class="mb-1">{{ edu.institution }}</p>
+                            <p class="text-muted small"><i class="bi bi-calendar me-2"></i>{{ edu.years }} | GPA: {{ edu.gpa }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="section-title text-primary pb-2 mb-4"><i class="bi bi-briefcase-fill me-2"></i>Professional Experience</h4>
+                    {% for exp in experiences %}
+                        <div class="timeline-item mb-3">
+                            <div class="card shadow-sm mb-3 transition-hover">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">{{ exp.job_title }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ exp.company }} | {{ exp.years }}</h6>
+                                    <p class="text-primary small fw-bold"><i class="bi bi-gear me-2"></i>{{ exp.tech_stack }}</p>
+                                    {% if exp.description %}
+                                    <p class="card-text small">{{ exp.description|safe }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="section-title text-primary pb-2 mb-4"><i class="bi bi-award-fill me-2"></i>Projects & Certifications</h4>
+                    {% for proj in projects %}
+                        <div class="timeline-item mb-3">
+                            <div class="card shadow-sm mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">{{ proj.name }}</h5>
+                                    <p class="text-primary small fw-bold">{{ proj.tech_used }}</p>
+                                    <p class="card-text small">{{ proj.description|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

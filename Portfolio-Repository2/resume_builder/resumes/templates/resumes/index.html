@@ -1,0 +1,69 @@
+{% extends "resumes/layout.html" %}
+{% block title %}Welcome{% endblock %}
+{% block content %}
+    <!-- Hero Section -->
+    <div class="container-fluid py-5 text-center" style=" background: linear-gradient(135deg, #0d6efd, #cce5ff); color: white;">
+        <div class="col-md-10 mx-auto">
+            <h1 class="display-4 fw-bold mb-4">Welcome to <span class="resume-name">Resume<span class="highlight-i">I</span></span></h1>
+            <p class="lead mb-4">Your gateway to a standout tech career starts with a perfect resume.</p>
+            <a href="{% url 'create' %}" class="btn btn-outline-primary">Create Your Resume Now</a>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container-fluid py-5">
+        <h2 class="text-center text-primary mb-5">Why Choose Resume<span style="font-size:italic;font-size:1.3em;">I</span>?</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">Tech-Focused Design</h5>
+                        <p class="card-text">Tailored fields for programming skills, projects, and experience.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">Dynamic Inputs</h5>
+                        <p class="card-text">Add multiple jobs and certifications with ease.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 shadow-sm border-0 hover-lift">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">Instant Results</h5>
+                        <p class="card-text">Generate your resume in seconds, ready to impress.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="container-fluid py-5 text-center bg-light shadow">
+        <div class="col-md-8 mx-auto">
+            <h3 class="text-primary mb-3">Ready to Land Your Dream Tech Job?</h3>
+            <p class="mb-4">Join thousands of developers who’ve built their future with us.</p>
+            <a href="{% url 'create' %}" class="btn btn-outline-primary btn-lg">Get Started</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="container-fluid py-4 mt-5 bg-primary text-white">
+        <div class="row align-items-center">
+            <div class="col-md-4 text-center text-md-start">
+                <p class="mb-0 fw-bold">Tech CV Builder</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <p class="mb-0">© 2025 | Crafted for Tech Talent</p>
+            </div>
+            <div class="col-md-4 text-center text-md-end">
+                <a href="{% url 'index' %}" class="text-white me-3 text-decoration-none"><i class="bi bi-house-door me-1"></i>Home</a>
+                <a href="{% url 'create' %}" class="text-white text-decoration-none"><i class="bi bi-plus-circle me-1"></i>Create</a>
+            </div>
+        </div>
+    </footer>
+   
+{% endblock %}

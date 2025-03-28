@@ -1,0 +1,205 @@
+{% extends "resumes/layout.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .loading-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.loading-bar {
+    height: 4px;
+    background: #0d6efd;
+    animation: moveBar 1.5s infinite;
+    width: 0;
+}
+
+@keyframes moveBar {
+    0% { width: 0; }
+    50% { width: 100%; }
+    100% { width: 0; }
+}
+</style>
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-8">
+        <h1 class="text-center mb-4 text-primary">{% if resume %}Edit Your Tech Resume{% else %}Create Your Tech Resume{% endif %}</h1>
+        <form method="post" enctype="multipart/form-data" action="{% url 'create' %}" class="p-4 bg-light shadow rounded" style="border-top: 4px solid #0d6efd;">
+            {% csrf_token %}
+
+            <!-- Personal Details -->
+            <h3 class="mt-3 text-primary">Personal Details</h3>
+            <div class="row">
+                <div class="col-md-6 mb-3"><input type="text" name="name" id="name" placeholder="Full Name" class="form-control" value="{{ resume.name }}" required></div>
+                <div class="col-md-6 mb-3"><input type="email" name="email" id="email" placeholder="Email" class="form-control" value="{{ resume.email }}" required></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3"><input type="tel" name="phone" id="phone" placeholder="Phone Number" class="form-control" value="{{ resume.phone }}" required></div>
+                <div class="col-md-6 mb SON-3"><input type="url" name="linkedin" id="linkedin" placeholder="LinkedIn or GitHub URL" class="form-control" value="{{ resume.linkedin }}"></div>
+            </div>
+            <div class="mb-3"><input type="file" name="photo" id="photo" accept="image/*" class="form-control"></div>
+            <div class="row">
+                <div class="col-md-6 mb-3"><input type="text" name="languages" id="languages" placeholder="Languages" class="form-control" value="{{ resume.languages }}" required></div>
+                <div class="col-md-6 mb-3"><input type="text" name="location" id="location" placeholder="Location" class="form-control" value="{{ resume.location }}"></div>
+            </div>
+
+            <!-- Summary -->
+            <h3 class="mt-3 text-primary">Professional Summary</h3>
+            <div class="mb-3 position-relative">
+                <textarea  name="summary"  id="summary"  class="form-control" placeholder="Professional Software Engineer with 3+ years of experience ...">{{ resume.summary }}</textarea>
+                <button type="button" class="btn btn-outline-info btn-sm position-absolute" title="AI suggestions are currently unavailable due to some reason" style="bottom: 5px; right: 5px;" onclick="suggest(this)">AI Suggestion</button>
+                <span id="loading" class="loading-text" style="display: none;">Loading AI Suggestions<div class="loading-bar"></div></span>
+            </div>
+
+            <!-- Education  -->
+            <h3 class="mt-3 text-primary">Education</h3>
+            <div id="education-container">
+                {% for edu in educations %}
+                <div class="education-entry mb-3 border p-3 rounded">
+                    <div class="mb-3"><input type="text" name="degree[]" id="degree-{{ forloop.counter0 }}" placeholder="Degree" class="form-control" value="{{ edu.degree }}"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3"><input type="text" name="institution[]" id="institution-{{ forloop.counter0 }}" placeholder="Institution" class="form-control" value="{{ edu.institution }}"></div>
+                        <div class="col-md-3 mb-3"><input type="text" name="years[]" id="years-{{ forloop.counter0 }}" placeholder="Years" class="form-control" value="{{ edu.years }}"></div>
+                        <div class="col-md-3 mb-3"><input type="text" name="gpa[]" id="gpa-{{ forloop.counter0 }}" placeholder="GPA" class="form-control" value="{{ edu.gpa }}"></div>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% empty %}
+                <div class="education-entry mb-3 border p-3 rounded">
+                    <div class="mb-3"><input type="text" name="degree[]" id="degree-0" placeholder="Degree" class="form-control"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3"><input type="text" name="institution[]" id="institution-0" placeholder="Institution" class="form-control"></div>
+                        <div class="col-md-3 mb-3"><input type="text" name="years[]" id="years-0" placeholder="Years" class="form-control"></div>
+                        <div class="col-md-3 mb-3"><input type="text" name="gpa[]" id="gpa-0" placeholder="GPA" class="form-control"></div>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-education" class="btn btn-outline-primary mt-2">Add Education</button>
+
+            <!-- Experience -->
+            <h3 class="mt-3 text-primary">Tech Experience</h3>
+            <div id="experience-container">
+                {% for exp in experiences %}
+                <div class="experience-entry mb-3 border p-3 rounded">
+                    <div class="mb-2"><input type="text" name="job_title[]" id="job_title-{{ forloop.counter0 }}" placeholder="Job Title" class="form-control" value="{{ exp.job_title }}"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2"><input type="text" name="company[]" id="company-{{ forloop.counter0 }}" placeholder="Company" class="form-control" value="{{ exp.company }}"></div>
+                        <div class="col-md-6 mb-2"><input type="text" name="exp_years[]" id="exp_years-{{ forloop.counter0 }}" placeholder="Years" class="form-control" value="{{ exp.years }}"></div>
+                    </div>
+                    <div class="mb-2"><input type="text" name="tech_stack[]" id="tech_stack-{{ forloop.counter0 }}" placeholder="Tech Stack" class="form-control" value="{{ exp.tech_stack }}"></div>
+                    <div class="mb-2 position-relative">
+                        <textarea  name="job_desc[]" id="job_desc-{{ forloop.counter0 }}" placeholder="Key Responsibilities" class="form-control" rows="3">{{ exp.description }}</textarea>
+                        <button type="button" class="btn btn-outline-info btn-sm position-absolute" style="bottom: 5px; right: 5px;" onclick="suggest(this)">AI Suggestion</button>
+                        <span id="loading" class="loading-text" style="display: none;">Loading AI Suggestions<div class="loading-bar"></div></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% empty %}
+                <div class="experience-entry mb-3 border p-3 rounded">
+                    <div class="mb-2"><input type="text" name="job_title[]" id="job_title-0" placeholder="Job Title" class="form-control"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2"><input type="text" name="company[]" id="company-0" placeholder="Company" class="form-control"></div>
+                        <div class="col-md-6 mb-2"><input type="text" name="exp_years[]" id="exp_years-0" placeholder="Years" class="form-control"></div>
+                    </div>
+                    <div class="mb-2"><input type="text" name="tech_stack[]" id="tech_stack-0" placeholder="Tech Stack" class="form-control"></div>
+                    <div class="mb-2 position-relative">
+                        <textarea  name="job_desc[]" id="job_desc-0" placeholder="Key Responsibilities" class="form-control  rows="3"></textarea>
+                        <button type="button" title="AI suggestions are currently  unavailable due to some reason" class="btn btn-outline-info btn-sm position-absolute" style="bottom: 5px; right: 5px;" onclick="suggest(this)">AI Suggestion</button>
+                        <span id="loading" class="loading-text" style="display: none;">Loading AI Suggestions<div class="loading-bar"></div></span>
+                    </div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-experience" class="btn btn-outline-primary mt-2">Add Experience</button>
+
+            <!-- Skills -->
+            <h3 class="mt-3 text-primary">Technical Skills</h3>
+            <div class="mb-3"><input type="text" name="skills" id="skills" placeholder="E.g., Python, JavaScript, SQL" class="form-control" value="{{ resume.skills }}"></div>
+
+            <!-- Projects -->
+            <h3 class="mt-3 text-primary">Projects & Certifications</h3>
+            <div id="project-container">
+                {% for proj in projects %}
+                <div class="project-entry mb-3 border p-3 rounded">
+                    <div class="mb-2"><input type="text" name="project_name[]" id="project_name-{{ forloop.counter0 }}" placeholder="Project Name" class="form-control" value="{{ proj.name }}"></div>
+                    <div class="mb-2 position-relative">
+                        <textarea name="project_desc[]" id="project_desc-{{ forloop.counter0 }}" placeholder="Description" class="form-control" rows="3">{{ proj.description }}</textarea>
+                        <button type="button" title="AI suggestions is currently unavailable due to some reason" class="btn btn-outline-info btn-sm position-absolute" style="bottom: 5px; right: 5px;" onclick="suggest(this)">AI Suggestion</button>
+                        <span id="loading" class="loading-text" style="display: none;">Loading AI Suggestions<div class="loading-bar"></div></span>
+                    </div>
+                    <div class="mb-2"><input type="text" name="project_tech[]" id="project_tech-{{ forloop.counter0 }}" placeholder="Technologies Used" class="form-control" value="{{ proj.tech_used }}"></div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% empty %}
+                <div class="project-entry mb-3 border p-3 rounded">
+                    <div class="mb-2"><input type="text" name="project_name[]" id="project_name-0" placeholder="Project Name" class="form-control"></div>
+                    <div class="mb-2 position-relative">
+                        <textarea contenteditable="true" name="project_desc[]" id="project_desc-0" placeholder="Description" class="form-control" rows="3"></textarea>
+                        <button type="button" title="AI suggestions are currently unavailable due to some reason" class="btn btn-outline-info btn-sm position-absolute" style="bottom: 5px; right: 5px;" onclick="suggest(this)">AI Suggestion</button>
+                        <span id="loading" class="loading-text" style="display: none;">Loading AI Suggestions<div class="loading-bar"></div></span>
+                    </div>
+                    <div class="mb-2"><input type="text" name="project_tech[]" id="project_tech-0" placeholder="Technologies Used" class="form-control"></div>
+                    <button type="button" class="btn btn-outline-danger btn-sm remove-entry">Remove</button>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-project" class="btn btn-outline-primary mt-2">Add Project/Certification</button>
+
+            <!-- Submit -->
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-outline-primary btn-lg">Select Template</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function suggest(button) {
+    const field = button.previousElementSibling;
+    const loading =button.nextElementSibling;
+    const value=field.value;
+    field.value = '';
+    loading.style.display = 'block';
+
+    fetch('/suggest', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('input[name="csrfmiddlewaretoken"]').value
+        },
+        body: JSON.stringify({ field: field.id, current: value})
+    })
+    .then(response => response.json())
+
+    .then(data => {
+        if (data.suggestion) {
+
+            setTimeout(() => {field.value = data.suggestion
+                
+            }, 100);
+        }
+        else{
+
+            field.value=value;
+
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+
+        field.value=value;
+
+})
+    .finally(()=>{
+        loading.style.display='none';
+    })
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "resumes/layout.html" %}
+{% load static %}
+{% block title %}Resume Preview{% endblock %}
+{% block content %}
+    <div class="container-fluid py-5" style="background: #f8f9fa; min-height: 100vh;">
+        <div class="text-center mb-4">
+            <a  href="?download=pdf" class="btn btn-outline-primary btn-lg" style="margin-right:12px;"><i class="bi bi-download me-2"></i>Download as PDF</a>
+            <button id="resume-edit-button" class="btn btn-outline-primary btn-lg "><i class="bi bi-pencil-square me-2"></i>Edit Resume</button>
+        </div>
+
+        <div class="col-md-8 mx-auto hover-pop shadow p-4 bg-light rounded" style="max-height: 90vh; overflow-y: auto; border-top: 4px solid #0d6efd;">
+            <h3 class="text-primary text-center">Your Resume</h3>
+            {% include template %}
+        </div>
+    </div>
+
+    <style>
+        .hover-pop {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-pop:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <script>
+    document.getElementById('resume-edit-button').addEventListener('click',function(){
+        window.location.href='/create?edit=true';
+    });
+    </script>
+{% endblock %}
