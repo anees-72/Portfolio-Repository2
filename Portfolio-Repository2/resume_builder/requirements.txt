@@ -3,3 +3,4 @@ Markdown==3.7
 openai==1.65.4
 pdfkit==1.0.0
 python-decouple
+Django==5.1.7
