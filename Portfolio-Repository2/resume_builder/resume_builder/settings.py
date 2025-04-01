@@ -19,6 +19,8 @@ pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 API_KEY=config('API_KEY')
+GOOGLE_DRIVE_KEY=config('GOOGLE_DRIVE_KEY')
+FOLDER_ID=config('FOLDER_ID')
 
 
 LOGIN_URL = '/login'

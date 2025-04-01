@@ -9,7 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const entry = container.querySelector(`.${entryClass}`).cloneNode(true);
         entry.querySelectorAll('input, textarea').forEach(input => input.value = '');
         const textarea = entry.querySelector('textarea');
-        textarea.id = textarea.id.replace(/\d+$/, counters[containerId]);
+        if (textarea){
+          textarea.id = textarea.id.replace(/\d+$/, counters[containerId]);  
+        }
         container.appendChild(entry);
         counters[containerId]++;
     };

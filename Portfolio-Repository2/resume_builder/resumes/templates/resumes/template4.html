@@ -24,7 +24,7 @@
 <body>
 
         <div class="grid-header">
-            <img  src="https://glorious-memory-g459jr6gx7q7f7jv-8000.app.github.dev/{% if resume.photo %}{{resume.photo.url}}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}"class="rounded-circle mb-3" style="width:100px; height:100px">
+            <img  src="{% if resume.photo %}{{ resume.photo }}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle mb-3" style="width:100px; height:100px">
             <h1>{{ resume.name }}</h1>
             <p>Software Engineer</p>
         </div>

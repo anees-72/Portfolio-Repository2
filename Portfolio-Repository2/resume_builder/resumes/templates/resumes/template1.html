@@ -33,7 +33,7 @@
             <!-- Sidebar -->
             <div class="col-md-4 sidebar text-white p-4">
                 <div class="text-center mb-4">
-                    <img src="https://glorious-memory-g459jr6gx7q7f7jv-8000.app.github.dev/{% if resume.photo %}{{resume.photo.url}}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle profile-img mb-3 shadow">
+                    <img src="{% if resume.photo %}{{ resume.photo }}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle profile-img mb-3 shadow" style=" width:100px; height:100px;">
                     <h4 class="fw-bold">{{ resume.name }}</h4>
                     <p class="text-white-50 mb-0">Software Engineer</p>
                 </div>
