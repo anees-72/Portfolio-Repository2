@@ -218,8 +218,8 @@ def preview(request, template_id):
                 "experiences": experiences,
                 "projects": projects,
             }).content.decode('utf-8')
-
-            pdf = pdfkit.from_string(html, False, options={'page-size': 'Legal', 'enable-local-file-access': True})
+            config = pdfkit.configuration(wkhtmltopdf='../bin/wkhtmltopdf')
+            pdf = pdfkit.from_string(html, False, configuration=config, options={'page-size': 'Legal', 'enable-local-file-access': True})
             response = HttpResponse(pdf, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
             return response
