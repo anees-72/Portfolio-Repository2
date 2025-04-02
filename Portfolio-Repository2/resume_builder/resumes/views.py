@@ -17,6 +17,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from io import BytesIO
 import os
+from vercel import waitUntil
 
 def index(request):
     return render(request, "resumes/index.html")
@@ -57,6 +58,10 @@ def suggest(request):
         return JsonResponse({'suggestion': suggestion})
     return JsonResponse({'error': 'invalid_method'}, status=400)
 
+def async_upload(file,filename,resume):
+    photo_url = upload_to_drive(file, filename)
+    resume.photo = photo_url
+    resume.save()
 
 def upload_to_drive(file, filename):
     creds = Credentials.from_service_account_info(json.loads(settings.GOOGLE_DRIVE_KEY))
@@ -81,10 +86,10 @@ def create(request):
             resume.location = request.POST.get("location")
             resume.languages = request.POST.get("languages")
             if request.FILES.get("photo"):
-                
+
                 photo_file = request.FILES.get("photo")
-                photo_url = upload_to_drive(photo_file, photo_file.name)
-                resume.photo = photo_url
+                waitUntil(async_upload(photo_file, photo_file.name, resume))
+
             resume.linkedin = request.POST.get("linkedin", "")
             resume.summary = markdown.markdown(request.POST.get("summary", ""))
             resume.skills = request.POST.get("skills", "")
@@ -136,8 +141,7 @@ def create(request):
             if request.FILES.get("photo"):
                 
                 photo_file = request.FILES.get("photo")
-                photo_url = upload_to_drive(photo_file, photo_file.name)
-                resume.photo = photo_url
+                waitUntil(async_upload(photo_file, photo_file.name, resume))
 
             for degree, institution, years, gpa in zip(
                 request.POST.getlist("degree[]"), request.POST.getlist("institution[]"),
