@@ -38,7 +38,7 @@ def create(request):
     if request.method == "GET":
         return render(request, "encyclopedia/create.html")
     else:
-        title = request.POST.get('title')
+        title = request.POST.get('title').strip()
         content = request.POST.get('content')
         if not title or not content:
             return render(request, "encyclopedia/error.html", {"message": "Title or content missing"})
@@ -56,7 +56,7 @@ def edit(request):
 
 def save_edit(request):
     if request.method == "POST":
-        title = request.POST.get('title')
+        title = request.POST.get('title').strip()
         content = request.POST.get('content')
         entry = Entry.objects.get(title__iexact=title)
         entry.content = content

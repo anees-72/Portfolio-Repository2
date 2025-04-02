@@ -3,7 +3,7 @@
     {{name}}
 {% endblock %}
 {% block body %}
-
+ <h1>{{name}}</h1>
  <div>{{content|safe}}</div>
  <form action="{% url 'edit' %}" method="POST">
     {% csrf_token %}
