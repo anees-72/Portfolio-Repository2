@@ -34,46 +34,37 @@ def search(request):
         "name":q,
         "content": matching_entries
     })
+    
 def create(request):
-    if request.method=="GET":
+    if request.method == "GET":
         return render(request, "encyclopedia/create.html")
     else:
-        title=request.POST['title']
-        content=request.POST['content']
-        allenteries=util.list_entries()
-        enterieslower=[]
-        for entry in allenteries:
-            enterieslower.append(entry.lower())
-        if title.lower() in enterieslower:
-            return render (request, "encyclopedia/error.html",{
-                "message":"File name already exists"
-            })
-        else:
-            util.save_entry(title,content)
-            dcontent=markdown.markdown(content)
-            return render(request,"encyclopedia/entry.html",{
-                "name":title,
-                "content":dcontent
-            })
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        if not title or not content:
+            return render(request, "encyclopedia/error.html", {"message": "Title or content missing"})
+        if Entry.objects.filter(title__iexact=title).exists():
+            return render(request, "encyclopedia/error.html", {"message": "File name already exists"})
+        Entry.objects.create(title=title, content=content)
+        dcontent = markdown.markdown(content)
+        return render(request, "encyclopedia/entry.html", {"name": title, "content": dcontent})
 
 def edit(request):
-    if request.method=="POST":
-        title=request.POST['title']
-        entry=util.get_entry(title)
-        return render(request, "encyclopedia/edit.html" ,{
-            "title":title,
-            "content":entry
-        })
+    if request.method == "POST":
+        title = request.POST.get('title')
+        entry = Entry.objects.get(title=title)
+        return render(request, "encyclopedia/edit.html", {"title": title, "content": entry.content})
+
 def save_edit(request):
-    if request.method=="POST":
-        title=request.POST['title']
-        content=request.POST['content']
-        util.save_entry(title,content)
-        dcontent=markdown.markdown(content)
-        return render(request,"encyclopedia/entry.html",{
-            "name":title,
-            "content":dcontent
-            })
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        entry = Entry.objects.get(title=title)
+        entry.content = content
+        entry.save()
+        dcontent = markdown.markdown(content)
+        return render(request, "encyclopedia/entry.html", {"name": title, "content": dcontent})
+
 def random_entry(request):
     title=util.list_entries()
     utitle=random.choice(title)
