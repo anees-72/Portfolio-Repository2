@@ -16,6 +16,7 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from io import BytesIO
+import os
 
 def index(request):
     return render(request, "resumes/index.html")
@@ -60,19 +61,14 @@ def suggest(request):
 def upload_to_drive(file, filename):
     creds = Credentials.from_service_account_info(json.loads(settings.GOOGLE_DRIVE_KEY))
     drive_service = build('drive', 'v3', credentials=creds)
-    
     folder_id = settings.FOLDER_ID  
     file_metadata = {'name': filename, 'parents': [folder_id]}
-    
-    
     file_content = file.read()  
     media = MediaIoBaseUpload(BytesIO(file_content), mimetype=file.content_type)
-    
     uploaded_file = drive_service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-    
     drive_service.permissions().create(fileId=uploaded_file.get('id'), body={'role': 'reader', 'type': 'anyone'}).execute()
-    
     return f"https://drive.google.com/thumbnail?id={uploaded_file.get('id')}"
+
 @login_required
 def create(request):
     if request.method == "POST":
@@ -218,7 +214,7 @@ def preview(request, template_id):
                 "experiences": experiences,
                 "projects": projects,
             }).content.decode('utf-8')
-            config = pdfkit.configuration(wkhtmltopdf='../bin/wkhtmltopdf')
+            config = pdfkit.configuration(wkhtmltopdf=os.path.join(settings.BASE_DIR, 'bin'))
             pdf = pdfkit.from_string(html, False, configuration=config, options={'page-size': 'Legal', 'enable-local-file-access': True})
             response = HttpResponse(pdf, content_type='application/pdf')
             response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
