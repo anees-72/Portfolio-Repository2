@@ -4,11 +4,15 @@
 {% block content %}
     <div class="container-fluid py-5" style="background: #f8f9fa; min-height: 100vh;">
         <div class="text-center mb-4">
-            <a  href="?download=pdf" class="btn btn-outline-primary btn-lg" style="margin-right:12px;"><i class="bi bi-download me-2"></i>Download as PDF</a>
-            <button id="resume-edit-button" class="btn btn-outline-primary btn-lg "><i class="bi bi-pencil-square me-2"></i>Edit Resume</button>
+            <button id="download-pdf" class="btn btn-outline-primary btn-lg" style="margin-right:12px;">
+                <i class="bi bi-download me-2"></i>Download as PDF
+            </button>
+            <button id="resume-edit-button" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-pencil-square me-2"></i>Edit Resume
+            </button>
         </div>
 
-        <div class="col-md-8 mx-auto hover-pop shadow p-4 bg-light rounded" style="max-height: 90vh; overflow-y: auto; border-top: 4px solid #0d6efd;">
+        <div id="resume-content" class="col-md-8 mx-auto hover-pop shadow p-4 bg-light rounded" style="max-height: 90vh; overflow-y: auto; border-top: 4px solid #0d6efd;">
             <h3 class="text-primary text-center">Your Resume</h3>
             {% include template %}
         </div>
@@ -23,9 +27,47 @@
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
         }
     </style>
-    <script>
-    document.getElementById('resume-edit-button').addEventListener('click',function(){
-        window.location.href='/create?edit=true';
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+    document.getElementById('download-pdf').addEventListener('click', function() {
+        const element = document.getElementById('resume-content');
+        element.style.maxHeight = 'none';
+        element.style.overflowY = 'visible';
+        element.style.width = '100%'; 
+
+        const opt = {
+            margin: [0.3, 0.25, 0.3, 0.05], 
+            filename: '{{ resume.name|default:"resume" }}.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { 
+                scale: 1.5, 
+                useCORS: true,
+                scrollX: 100,
+                scrollY: 0,
+                width: element.offsetWidth, 
+                windowWidth: element.offsetWidth,
+                windowHeight: element.scrollHeight
+            },
+            jsPDF: { 
+                unit: 'in', 
+                format: 'letter', 
+                orientation: 'portrait' 
+            },
+            pagebreak: { mode: 'css' } 
+        };
+
+        html2pdf().set(opt).from(element).save().then(() => {
+            element.style.maxHeight = '90vh';
+            element.style.overflowY = 'auto';
+            element.style.width = '';
+        });
     });
-    </script>
+
+    document.getElementById('resume-edit-button').addEventListener('click', function() {
+        window.location.href = '/create?edit=true';
+    });
+</script>
 {% endblock %}

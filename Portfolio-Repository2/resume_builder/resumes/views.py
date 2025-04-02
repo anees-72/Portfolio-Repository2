@@ -1,6 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, redirect
 from django.http import HttpResponse, JsonResponse
-import pdfkit
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse
@@ -16,8 +15,8 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from io import BytesIO
-import os
-from vercel import waitUntil
+
+
 
 def index(request):
     return render(request, "resumes/index.html")
@@ -58,10 +57,7 @@ def suggest(request):
         return JsonResponse({'suggestion': suggestion})
     return JsonResponse({'error': 'invalid_method'}, status=400)
 
-def async_upload(file,filename,resume):
-    photo_url = upload_to_drive(file, filename)
-    resume.photo = photo_url
-    resume.save()
+
 
 def upload_to_drive(file, filename):
     creds = Credentials.from_service_account_info(json.loads(settings.GOOGLE_DRIVE_KEY))
@@ -88,7 +84,9 @@ def create(request):
             if request.FILES.get("photo"):
 
                 photo_file = request.FILES.get("photo")
-                waitUntil(async_upload(photo_file, photo_file.name, resume))
+                resume.photo = upload_to_drive(photo_file, photo_file.name)
+                resume.save()
+
 
             resume.linkedin = request.POST.get("linkedin", "")
             resume.summary = markdown.markdown(request.POST.get("summary", ""))
@@ -141,7 +139,8 @@ def create(request):
             if request.FILES.get("photo"):
                 
                 photo_file = request.FILES.get("photo")
-                waitUntil(async_upload(photo_file, photo_file.name, resume))
+                resume.photo = upload_to_drive(photo_file, photo_file.name)
+                resume.save()
 
             for degree, institution, years, gpa in zip(
                 request.POST.getlist("degree[]"), request.POST.getlist("institution[]"),
@@ -210,20 +209,7 @@ def preview(request, template_id):
             3: "resumes/template3.html",
             4: "resumes/template4.html",
         }
-        template = template_map.get(int(template_id), "resumes/template1.html")
-        if request.GET.get('download') == 'pdf':
-            html = render(request, template, {
-                "resume": resume,
-                "educations": educations,
-                "experiences": experiences,
-                "projects": projects,
-            }).content.decode('utf-8')
-            config = pdfkit.configuration(wkhtmltopdf=os.path.join(settings.BASE_DIR, 'bin'))
-            pdf = pdfkit.from_string(html, False, configuration=config, options={'page-size': 'Legal', 'enable-local-file-access': True})
-            response = HttpResponse(pdf, content_type='application/pdf')
-            response['Content-Disposition'] = f'attachment; filename="{resume.name}_resume.pdf"'
-            return response
-
+        template = template_map.get(int(template_id), "resumes/template1.html")    
         return render(request, "resumes/preview.html", {
             "resume": resume,
             "educations": educations,
