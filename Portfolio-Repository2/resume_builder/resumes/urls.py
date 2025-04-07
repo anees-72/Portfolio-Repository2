@@ -11,4 +11,5 @@ urlpatterns=[
     path("preview/<int:template_id>", views.preview, name="preview"),
     #api routes
     path("suggest", views.suggest, name="suggest"),
+    path("check_upload/<str:upload_id>/<int:resume_id>", views.check_upload, name="check_upload"),
 ]

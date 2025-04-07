@@ -33,7 +33,7 @@
             <!-- Sidebar -->
             <div class="col-md-4 sidebar text-white p-4">
                 <div class="text-center mb-4">
-                    <img src="{% if resume.photo %}{{ resume.photo }}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle profile-img mb-3 shadow" style=" width:100px; height:100px;">
+                    <img src="" id="resume_image" class="rounded-circle profile-img mb-3 shadow" style=" width:100px; height:100px;display:none;" alt="Profile Image" onload="this.style.display='block';">
                     <h4 class="fw-bold">{{ resume.name }}</h4>
                     <p class="text-white-50 mb-0">Software Engineer</p>
                 </div>

@@ -15,6 +15,8 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from io import BytesIO
+from vercel import waitUntil
+import uuid
 
 
 
@@ -75,99 +77,58 @@ def create(request):
     if request.method == "POST":
         try:
             resume = Resume.objects.filter(user=request.user).latest('created_at')
-
-            resume.name = request.POST.get("name")
-            resume.email = request.POST.get("email")
-            resume.phone = request.POST.get("phone")
-            resume.location = request.POST.get("location")
-            resume.languages = request.POST.get("languages")
-            if request.FILES.get("photo"):
-
-                photo_file = request.FILES.get("photo")
-                resume.photo = upload_to_drive(photo_file, photo_file.name)
-                resume.save()
-
-
-            resume.linkedin = request.POST.get("linkedin", "")
-            resume.summary = markdown.markdown(request.POST.get("summary", ""))
-            resume.skills = request.POST.get("skills", "")
-            resume.save()
-
-            resume.educations.all().delete()
-            resume.experiences.all().delete()
-            resume.projects.all().delete()
-
-            for degree, institution, years, gpa in zip(
-                request.POST.getlist("degree[]"), request.POST.getlist("institution[]"),
-                request.POST.getlist("years[]"), request.POST.getlist("gpa[]")
-            ):
-                if degree or institution:
-                    Education.objects.create(resume=resume, degree=degree, institution=institution, years=years, gpa=gpa)
-
-            for job_title, company, years, tech_stack, desc in zip(
-                request.POST.getlist("job_title[]"), request.POST.getlist("company[]"),
-                request.POST.getlist("exp_years[]"), request.POST.getlist("tech_stack[]"),
-                request.POST.getlist("job_desc[]")
-            ):
-                if job_title or company:
-                    html_desc = markdown.markdown(desc)
-                    Experience.objects.create(resume=resume, job_title=job_title, company=company,
-                                            years=years, tech_stack=tech_stack, description=html_desc)
-
-            for name, desc, tech in zip(
-                request.POST.getlist("project_name[]"), request.POST.getlist("project_desc[]"),
-                request.POST.getlist("project_tech[]")
-            ):
-                if name:
-                    html_desc = markdown.markdown(desc)
-                    Certification.objects.create(resume=resume, name=name, description=html_desc, tech_used=tech)
-
-            return redirect("templates")
-
         except Resume.DoesNotExist:
-            resume = Resume.objects.create(
-                user=request.user,
-                name=request.POST.get("name"),
-                email=request.POST.get("email"),
-                phone=request.POST.get("phone"),
-                location=request.POST.get("location"),
-                languages=request.POST.get("languages"),
-                linkedin=request.POST.get("linkedin", ""),
-                summary=markdown.markdown(request.POST.get("summary", "")),
-                skills=request.POST.get("skills", ""),
-            )
-            if request.FILES.get("photo"):
-                
-                photo_file = request.FILES.get("photo")
-                resume.photo = upload_to_drive(photo_file, photo_file.name)
-                resume.save()
+            resume = Resume.objects.create(user=request.user)
 
-            for degree, institution, years, gpa in zip(
-                request.POST.getlist("degree[]"), request.POST.getlist("institution[]"),
-                request.POST.getlist("years[]"), request.POST.getlist("gpa[]")
-            ):
-                if degree or institution:
-                    Education.objects.create(resume=resume, degree=degree, institution=institution, years=years, gpa=gpa)
+        
+        resume.name = request.POST.get("name")
+        resume.email = request.POST.get("email")
+        resume.phone = request.POST.get("phone")
+        resume.location = request.POST.get("location")
+        resume.languages = request.POST.get("languages")
+        resume.linkedin = request.POST.get("linkedin", "")
+        resume.summary = markdown.markdown(request.POST.get("summary", ""))
+        resume.skills = request.POST.get("skills", "")
+        resume.save()
 
-            for job_title, company, years, tech_stack, desc in zip(
-                request.POST.getlist("job_title[]"), request.POST.getlist("company[]"),
-                request.POST.getlist("exp_years[]"), request.POST.getlist("tech_stack[]"),
-                request.POST.getlist("job_desc[]")
-            ):
-                if job_title or company:
-                    html_desc = markdown.markdown(desc)
-                    Experience.objects.create(resume=resume, job_title=job_title, company=company,
-                                            years=years, tech_stack=tech_stack, description=html_desc)
+        
+        upload_id = str(uuid.uuid4()) if request.FILES.get("photo") else None
+        if upload_id:
+            photo_file = request.FILES.get("photo")
+            waitUntil(lambda: setattr(resume, 'photo', upload_to_drive(photo_file, photo_file.name)) or resume.save())
 
-            for name, desc, tech in zip(
-                request.POST.getlist("project_name[]"), request.POST.getlist("project_desc[]"),
-                request.POST.getlist("project_tech[]")
-            ):
-                if name:
-                    html_desc = markdown.markdown(desc)
-                    Certification.objects.create(resume=resume, name=name, description=html_desc, tech_used=tech)
+        
+        resume.educations.all().delete()
+        resume.experiences.all().delete()
+        resume.projects.all().delete()
 
-            return redirect("templates")
+        for degree, institution, years, gpa in zip(
+            request.POST.getlist("degree[]"), request.POST.getlist("institution[]"),
+            request.POST.getlist("years[]"), request.POST.getlist("gpa[]")
+        ):
+            if degree or institution:
+                Education.objects.create(resume=resume, degree=degree, institution=institution, years=years, gpa=gpa)
+
+        for job_title, company, years, tech_stack, desc in zip(
+            request.POST.getlist("job_title[]"), request.POST.getlist("company[]"),
+            request.POST.getlist("exp_years[]"), request.POST.getlist("tech_stack[]"),
+            request.POST.getlist("job_desc[]")
+        ):
+            if job_title or company:
+                html_desc = markdown.markdown(desc)
+                Experience.objects.create(resume=resume, job_title=job_title, company=company,
+                                        years=years, tech_stack=tech_stack, description=html_desc)
+
+        for name, desc, tech in zip(
+            request.POST.getlist("project_name[]"), request.POST.getlist("project_desc[]"),
+            request.POST.getlist("project_tech[]")
+        ):
+            if name:
+                html_desc = markdown.markdown(desc)
+                Certification.objects.create(resume=resume, name=name, description=html_desc, tech_used=tech)
+
+        return JsonResponse({"message": "Resume created", "upload_id": upload_id, "resume_id": resume.id}, status=202)
+            
 
     if request.GET.get('edit') == 'true':
         try:
@@ -183,6 +144,11 @@ def create(request):
             pass
 
     return render(request, "resumes/create.html")
+
+@login_required
+def check_upload(request,upload_id,resume_id):
+    resume=Resume.objects.get(id=resume_id,user=request.user)
+    return JsonResponse({"url":resume.photo if resume.photo else ""})
 
 @login_required
 def templates(request):

@@ -19,7 +19,7 @@
     <div class="resume-container">
         <div class="header">
 
-             <img  src="{% if resume.photo %}{{ resume.photo }}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle mb-3" style="width:100px; height:100px">
+             <img  src=""  id="resume_image" onload="this.style.display='block';" class="rounded-circle mb-3" style="width:100px; height:100px; display:none;">
             <h1 class="fw-bold">{{ resume.name }}</h1>
             <p class="contact-info">
                 <i class="bi bi-envelope"></i> {{ resume.email }} |

@@ -24,7 +24,7 @@
 <body>
 
         <div class="grid-header">
-            <img  src="{% if resume.photo %}{{ resume.photo }}{% else %}{% static 'resumes/default_photo.png' %}{% endif %}" class="rounded-circle mb-3" style="width:100px; height:100px">
+            <img  src="" id="resume_image" onload="this.style.display='block';" class="rounded-circle mb-3" style="width:100px; height:100px; display:none;">
             <h1>{{ resume.name }}</h1>
             <p>Software Engineer</p>
         </div>

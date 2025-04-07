@@ -69,5 +69,27 @@
     document.getElementById('resume-edit-button').addEventListener('click', function() {
         window.location.href = '/create?edit=true';
     });
+    document.addEventListener('DOMContentLoaded',function(){
+        const resumeImage = document.getElementById('resume_image');
+        const resumeId = sessionStorage.getItem('resume_id');
+        const uploadId = sessionStorage.getItem('upload_id');
+        if (resumeImage && resumeId && uploadId){
+            const checkImage = setInterval(()=>{
+                fetch(`/check_upload/${uploadId}/${resumeId}/`)
+                .then(response => response.json())
+                .then(data=>{
+                    if (data.url){
+                        resumeImage.src=data.url;
+                        clearInterval(checkImage);
+                        sessionStorage.removeItem('resume_id');
+                        sessionStorage.removeItem('upload_id');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }, 1000);
+        }
+    });
 </script>
 {% endblock %}

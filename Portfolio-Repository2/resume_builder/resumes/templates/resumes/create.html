@@ -28,7 +28,7 @@
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="col-md-8">
         <h1 class="text-center mb-4 text-primary">{% if resume %}Edit Your Tech Resume{% else %}Create Your Tech Resume{% endif %}</h1>
-        <form method="post" enctype="multipart/form-data" action="{% url 'create' %}" class="p-4 bg-light shadow rounded" style="border-top: 4px solid #0d6efd;">
+        <form id="resume_form" method="post" enctype="multipart/form-data" action="{% url 'create' %}" class="p-4 bg-light shadow rounded" style="border-top: 4px solid #0d6efd;">
             {% csrf_token %}
 
             <!-- Personal Details -->
@@ -200,6 +200,22 @@
         loading.style.display='none';
     })
 }
+document.getElementById('resume_form').addEventListener('submit',function(e){
+    e.preventDefault();
+    const formData=new FormData(this);
+    fetch('/create',{method:'POST',body:formData})
+    .then(response=>response.json())
+    .then(data=>{
+        if (data.upload_id){
+            sessionStorage.setItem('upload_id',data.upload_id);
+            sessionStorage.setItem('resume_id',data.resume_id);     
+        }
+        window.location.href='/templates';
+    })
+    .catch(error=>{
+        console.error('Error:',error);
+    })
+});
 </script>
 
 {% endblock %}
