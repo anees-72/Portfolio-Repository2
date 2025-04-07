@@ -15,7 +15,6 @@ from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseUpload
 from io import BytesIO
-from vercel import waitUntil
 import uuid
 
 
