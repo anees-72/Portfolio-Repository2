@@ -206,11 +206,15 @@ document.getElementById('resume_form').addEventListener('submit',function(e){
     fetch('/create',{method:'POST',body:formData})
     .then(response=>response.json())
     .then(data=>{
+        if(data.Error){
+            console.log(data.Error)
+        }
         if (data.upload_id){
             sessionStorage.setItem('upload_id',data.upload_id);
             sessionStorage.setItem('resume_id',data.resume_id);     
         }
         window.location.href='/templates';
+        
     })
     .catch(error=>{
         console.error('Error:',error);
