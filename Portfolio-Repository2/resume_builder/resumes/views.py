@@ -92,9 +92,12 @@ def create(request):
 
         
         upload_id = str(uuid.uuid4()) if request.FILES.get("photo") else None
-        if upload_id:
-            photo_file = request.FILES.get("photo")
-            waitUntil(lambda: setattr(resume, 'photo', upload_to_drive(photo_file, photo_file.name)) or resume.save())
+        try:
+            if upload_id:
+                photo_file = request.FILES.get("photo")
+                waitUntil(lambda: resume.__setattr__('photo', upload_to_drive(photo_file, photo_file.name)) or resume.save())
+        except Exception as e:
+            return JsonResponse({"Error":str(e)},status=500)
 
         
         resume.educations.all().delete()
