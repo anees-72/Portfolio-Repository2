@@ -1,0 +1,522 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer | Anees Ali</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Anees Ali</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <button id="toggleNavIcons" class="btn btn-outline-success me-2" title="Toggle Icons">
+                <i class="fas fa-icons"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home" data-icon="fa-home">Home</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about" data-icon="fa-user">About</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resume" data-icon="fa-download">Resume</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects" data-icon="fa-code">Projects</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#certifications" data-icon="fa-certificate">Certifications</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience" data-icon="fa-briefcase">Experience</a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact" data-icon="fa-envelope">Contact</a>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="bg-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">Hi, I'm Anees Ali</h1>
+                    <p class="hero-subtitle">Full Stack Web Developer & CS50 Graduate</p>
+                    <p class="lead">I build exceptional digital experiences with clean, efficient code.</p>
+                    <div class="hero-cta">
+                        <a href="#projects" id="view-workbutton" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-primary hover-lift">Contact Me</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image text-center">
+                    <img src="icons/3d-glasses.png" class="img-fluid" alt="Developer Illustration">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <img class="section-icon" src="icons/3d-glasses.png"><h2 class="section-title fade-up">About Me</h2>
+                    <div class="about-text fade-up">
+                        <p>I'm a passionate full-stack developer with a strong foundation in computer science, having completed both CS50x and CS50 Web Programming courses. My journey in tech started with a curiosity about how things work on the internet, which led me to dive deep into web development.</p>
+                        <p>With expertise in both front-end and back-end technologies, I enjoy creating seamless user experiences backed by robust, efficient code. I'm dedicated to writing clean, maintainable code and constantly learning new technologies to stay at the cutting edge.</p>
+                        <p>When I'm not coding, you'll find me exploring new technologies to implement new technologies into my applications and to make those applications more feature rich and easy to use.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-4 fade-up">My Skills</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="skill-item fade-up">
+                                <div class="skill-icon">
+                                    <i class="fab fa-html5"></i>
+                                </div>
+                                <h4>Frontend Development</h4>
+                                <p>HTML5, CSS3, JavaScript, Bootstrap</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-item fade-up">
+                                <div class="skill-icon">
+                                    <i class="fas fa-server"></i>
+                                </div>
+                                <h4>Backend Development</h4>
+                                <p>Python, Django, Flask</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-item fade-up">
+                                <div class="skill-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h4>Database Management</h4>
+                                <p>SQL, sqlite</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="skill-item fade-up">
+                                <div class="skill-icon">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                                <h4>Development Tools</h4>
+                                <p>Git, GitHub, VS Code, Docker</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+           <img src="icons/code.png" class="section-icon"> <h2 class="section-title text-center fade-up">My Projects</h2>
+            <p class="text-center mb-2 fade-up">Here are some of my recent works that showcase my skills and passion.</p>
+
+            <div class="row">
+                <!-- Project 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/resumebuilder.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Django</span>
+                                <span class="project-tag">AI API</span>
+                            </div>
+                            <h3 class="project-title">Resume Builder</h3>
+                            <p>A fully responsive Resume Builder application made speciafically for tech professionals using good templates and with a lot of features such as pdf download and ai suggestions features.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository2/tree/main/Portfolio-Repository2/resume_builder" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://resumebuilder-lake-beta.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="/api/taskmanager.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">Flask</span>
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">Bootstrap</span>
+                            </div>
+                            <h3 class="project-title">Task Manager</h3>
+                            <p>A task manager application using python light weight backend framework 'flask'.This application has a lot of features such as creating,deleting,search,filters,history,calender view etc.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/task_manager/task-manager" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://taskmanager-tau-eight.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img">
+                            <img src="api/network.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Javascript</span>
+                                <span class="project-tag">Django</span>
+                            </div>
+                            <h3 class="project-title">Network Application</h3>
+                            <p>A threads like socail network application where users can make text based posts,follow other users and other functionalities.This application was a part of cs50 web course.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/network" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://network1-swart.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/mail.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">Django</span>
+                                <span class="project-tag">Javascript</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">HTML/CSS</span>
+
+
+                            </div>
+                            <h3 class="project-title">Mail Application</h3>
+                            <p>A GMAIL like application with functionalities of authentication,sending mails and archiving/unarchiving the mail.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/mail" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://mail-eight-tau.vercel.app/login" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img">
+                            <img src="api/wiki.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Django</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">HTML</span>
+                            </div>
+                            <h3 class="project-title">WIKI Project</h3>
+                            <p>A wikipedia like application where users can post articles using markdown and the artciles are rendered as html using python markdown library and search functionality.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/wiki" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://wiki-lovat-tau.vercel.app" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img">
+                            <img src="api/commerce.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Django</span>
+                                <span class="project-tag">CSS</span>
+                                <span class="project-tag">HTML</span>
+                            </div>
+                            <h3 class="project-title">Commerce Project</h3>
+                            <p>A commerce application which let users login and add the listings and others users are allowed to add teh listing to their watchlist remove it bid on the listing add their own listings and other features as well.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/commerce" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://aneesali1.pythonanywhere.com" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/google.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+
+                            </div>
+                            <h3 class="project-title">Google Search</h3>
+                            <p>A basic but fun project of designing the front end of the google search,Image search and advanced search,the first projct of cs50 web.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/anees-72/Portfolio-Repository/tree/main/cs50web-search" target="_blank"><i class="fab fa-github"></i> Code</a>
+                                <a href="https://anees-72.github.io/Portfolio-Repository/index.html" target="_blank"><i class="fas fa-external-link-alt"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificaitons Section -->
+    <section id="certifications" class="section">
+        <div class="container">
+            <img src="icons/trophy.png" class="section-icon"><h2 class="section-title text-center fade-up">My Certifications</h2>
+            <p class="text-center mb-2 fade-up">Below are select certifications from courses I’ve completed, showcasing the skills and expertise I’ve developed to deliver high-quality web development solutions.</p>
+
+            <div class="row">
+                <!-- Certification 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/cs50w.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">JavaScript</span>
+                                <span class="project-tag">Bootstrap</span>
+                                <span class="project-tag">Django</span>
+                                <span class="project-tag">APIs</span>
+                                <span class="project-tag">React</span>
+                            </div>
+                            <h3 class="project-title">CS50's Web Programming with Python and JavaScript</h3>
+                            <p>Completed Harvard’s rigorous course, mastering web development fundamentals, including Django, JavaScript, and responsive design, to build dynamic, user-focused applications.</p>
+                            <div class="project-links">
+                               <a href="api/CS50W.pdf" ><i class="fa-solid fa-image fa-bounce"></i>  Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/responsivedesign.png">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML</span>
+                                <span class="project-tag">CSS</span>
+                            </div>
+                            <h3 class="project-title">freeCodeCamp Responsive Web Design</h3>
+                            <p>Completed freeCodeCamp’s course, gaining expertise in HTML, CSS, and responsive design principles to create accessible, mobile-friendly websites. Mastered techniques like Flexbox and CSS Grid for modern layouts. Built practical projects to reinforce skills in cross-device compatibility.</p>
+                            <div class="project-links">
+                               <a href="api/responsivedesign.png" ><i class="fa-solid fa-image fa-bounce"></i>  Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="project-card fade-up">
+                        <div class="project-img" >
+                            <img src="api/cs50x.PNG">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tags">
+                                <span class="project-tag">HTML/CSS</span>
+                                <span class="project-tag">C</span>
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">SQL</span>
+                                <span class="project-tag">Data Structures and Algorithms</span>
+                                <span class="project-tag">Flask</span>
+                            </div>
+                            <h3 class="project-title">CS50x: Introduction to Computer Science and Art of Programming.</h3>
+                            <p>Completed Harvard’s CS50x, gaining a strong foundation in computer science concepts, including algorithms, data structures, and programming in C, Python, and SQL.</p>
+                            <div class="project-links">
+                               <a href="api/CS50x.pdf" ><i class="fa-solid fa-image fa-bounce"></i>  Certificate</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </section>
+
+    <!-- Experience Section -->
+<section id="experience" class="section">
+    <div class="container">
+        <img src="icons/3d-briefcase.png"  class="section-icon"><h2 class="section-title text-center fade-up">Experience & Education</h2>
+        <p class="text-center mb-5 fade-up">My learning journey and hands-on project experience.</p>
+
+        <div class="timeline">
+            <!-- Education Item 1 (Current) -->
+            <div class="timeline-item fade-up">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024 - Present</div>
+                    <h4>Bachelor of Science in Software Engineering</h4>
+                    <h5>Virtual University of Pakistan</h5>
+                    <p>Currently pursuing a BS in Software Engineering, gaining in-depth knowledge of software development methodologies, programming, and system design. Actively applying concepts to real-world projects.</p>
+                </div>
+            </div>
+
+            <!-- Education Item 2 -->
+            <div class="timeline-item fade-up">
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <h4>CS50 Web Programming</h4>
+                    <h5>Harvard University (edX)</h5>
+                    <p>Completed an advanced course on web development, mastering Python, JavaScript, Django, SQL, and front-end technologies. Built real-world projects like a social network and email application (see Projects section).</p>
+                </div>
+            </div>
+
+            <!-- Education Item 3 -->
+            <div class="timeline-item fade-up">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024</div>
+                    <h4>CS50x: Introduction to Computer Science</h4>
+                    <h5>Harvard University (edX)</h5>
+                    <p>Completed a comprehensive introduction to computer science, covering algorithms, data structures, and software engineering fundamentals. Developed problem-solving skills through challenging projects.</p>
+                </div>
+            </div>
+
+            <!-- Education Item 4 -->
+            <div class="timeline-item fade-up">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024</div>
+                    <h4>Responsive Web Design Certification</h4>
+                    <h5>freeCodeCamp</h5>
+                    <p>Mastered responsive web design principles using HTML and CSS. Created multiple front-end projects to solidify skills in building accessible, mobile-friendly interfaces.</p>
+                </div>
+            </div>
+
+            <!-- Project Experience -->
+            <div class="timeline-item fade-up">
+                <div class="timeline-content">
+                    <div class="timeline-date">2024 - Present</div>
+                    <h4>Hands-On Project Experience</h4>
+                    <h5>Self-Directed Learning</h5>
+                    <p>Designed and developed a variety of full-stack web applications during and after completing CS50 courses. Projects include a resume builder, task manager, and wiki application, showcasing skills in Python, Django, Flask, JavaScript, and more (see Projects section above).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section ">
+        <div class="container">
+            <img src="icons/mail.png" class="section-icon"><h2 class="section-title text-center fade-up">Get In Touch</h2>
+            <p class="text-center mb-5 fade-up">Feel free to reach out for collaborations or just a friendly chat.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form fade-up">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="5" placeholder="Your Message" required></textarea>
+                            </div>
+                            <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-block ">Send Message</button>
+                            </div>
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Anees Ali</h3>
+                    <p>Full Stack Web Developer based in Pakistan.</p>
+                    <div class="social-icons">
+                        <a class="hover-icon" target="_blank" href="https://github.com/anees-72"><img src="icons/github.png" style="width:3rem;height:3rem;"></a>
+                        <a class="hover-icon" href="#"><img src="icons/linkedin.png" style="width:3rem;height:3rem;"></a>
+                    </div>
+                    <div id="resume">
+                        <a href="api/web-developer (1).pdf" download class="btn btn-outline-secondary mt-3 hover-lift">
+                            <img id="resumeicon" src="icons/resume.png">Download Resume
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p id="footerright">Let’s build something great!</p>
+                    <p><img src="icons/cube.png" class="section-icon" style="display:inline-block"><span id="iconattribution">Icons by <a href="https://flaticon.com" target="_blank">Flaticon</a> and <a href="https://icons8.com" target="_blank">Icons8</a></span></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center footer-text">
+                    <p>© 2025 Anees Ali. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap and Custom JS -->
+
+    <!-- Bootstrap and Custom JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="/script.js"></script>
+</body>
+</html>
