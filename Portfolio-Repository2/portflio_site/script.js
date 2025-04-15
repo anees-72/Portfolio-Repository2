@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
       footer: document.querySelector('#footer'),
       toggleNavIconsBtn:document.getElementById('toggleNavIcons'),
     };
-
-
+    document.getElementById('gmailicon').href=`mailto:${import.meta.env.VITE_GMAIL}`;
+    
     //navicons toggle functionality
     let isIconMode = false;
     $.navLinks.forEach(link => {
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
       $.navbar.style.backgroundColor = colors['--navbar-bg'];
       $.navLinks.forEach(nav=>{nav.style.color = colors['--text-color']});
       $.socialIcons.forEach(icon=>{
-        icon.style.color=colors['--primary'];
+        icon.style.filter=`drop-shadow(5px 5px 3px rgba(${colors['--primary-rgb']},0.4))`;
       });
       $.contact.style.backgroundColor=colors['--secondary'];
     }
