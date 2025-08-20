@@ -119,7 +119,7 @@ export default function Contact() {
               <li className="flex items-center space-x-4">
                 <Facebook className="text-blue-500" />
                 <a
-                  href="https://facebook.com/yourprofile"
+                  href="https://web.facebook.com/profile.php?id=61579605622019"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline"
