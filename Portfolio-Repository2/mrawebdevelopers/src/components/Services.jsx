@@ -43,7 +43,7 @@ export default function Services() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-500 via-white to-blue-500 py-16 px-6">
-      <h2 className="text-4xl font-bold text-center text-gray-800 mb-12">
+      <h2 className="text-4xl font-bold text-center text-gray-600 mb-12 mt-10">
         Our Services
       </h2>
       <div className="max-w-6xl mx-auto grid gap-8 sm:grid-cols-2 lg:grid-cols-3">

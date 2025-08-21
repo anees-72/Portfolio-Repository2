@@ -29,11 +29,14 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <Router>
-      <div className="relative min-h-screen bg-gradient-to-br from-pink-500 via-white to-blue-500 overflow-hidden [perspective:1000px]">
+      <div className="relative min-h-screen bg-gradient-to-br pb-16 md:pb-0 from-pink-500 via-white to-blue-500 overflow-hidden [perspective:1000px]">
         <ParticlesBackground />
         <Shapes />
         <Navbar />
         <AnimatedRoutes />
+        <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 text-center text-lg text-black-500 mt-10 py-2 bg-transparent">
+            © 2025 MRA Web Developers. All rights reserved.
+        </div>
       </div>
     </Router>
   );

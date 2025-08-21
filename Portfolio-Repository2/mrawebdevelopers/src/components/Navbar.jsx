@@ -21,6 +21,7 @@ export default function Navbar() {
   ];
 
   return (
+    <>
     <nav
       className={`fixed top-0 w-full z-50 transition-all ${
         scrolled ? "bg-white shadow-md" : "bg-transparent"
@@ -60,7 +61,7 @@ export default function Navbar() {
 
      
       {menuOpen && (
-        <ul className="md:hidden bg-white shadow-md py-4 px-6 space-y-4">
+        <ul className="md:hidden bg-white/20 backdrop-blur-md shadow-md py-4 px-6 space-y-4">
           {navLinks.map((link) => (
             <li key={link.name}>
               <NavLink
@@ -79,5 +80,6 @@ export default function Navbar() {
         </ul>
       )}
     </nav>
+    </>
   );
 }

@@ -3,9 +3,7 @@ import { User, Target } from "lucide-react";
 
 export default function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-br bg-gradient-to-br from-pink-500 via-white to-blue-500
-
- py-16 px-6">
+    <div className="min-h-screen  bg-gradient-to-br from-pink-500 via-white to-blue-500 py-16 px-6">
       <div className="max-w-5xl mx-auto space-y-16">
         <h2 className="text-4xl font-bold text-center text-gray-600 mb-12 mt-10">
         Founder and Mission

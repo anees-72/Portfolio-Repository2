@@ -5,7 +5,7 @@ export default function Team() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-500 via-white to-blue-500 flex flex-col items-center px-6 py-16">
       
-      <h1  className="text-4xl font-bold text-gray-800 mb-12">Meet Our Team</h1>
+      <h1  className="text-4xl font-bold text-gray-600 mb-12 mt-10">Meet Our Team</h1>
 
       
       <div className="relative flex flex-col items-center">

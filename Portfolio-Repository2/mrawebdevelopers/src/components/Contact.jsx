@@ -47,7 +47,7 @@ export default function Contact() {
       <div className="max-w-5xl w-full">
         
         
-        <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">
+        <h1 className="text-4xl font-bold text-center text-gray-600 mb-6 mt-10">
           Get In Touch!
         </h1>
 
@@ -102,7 +102,7 @@ export default function Contact() {
           </div>
 
          
-          <div className="bg-white/20 backdrop-blur-md shadow-lg rounded-2xl p-8 text-gray h-fit">
+          <div className="bg-white/20 backdrop-blur-md shadow-lg rounded-2xl md:mt-10 p-8 text-gray h-fit">
             <h2 className="text-2xl font-bold mb-6">Reference Links</h2>
             <ul className="space-y-6">
               <li className="flex items-center space-x-4">
