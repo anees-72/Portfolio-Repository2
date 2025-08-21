@@ -152,7 +152,7 @@
   }
   .hero-image img {
     height: 27rem;
-    width: 25rem;
+    width: 23rem;
     margin-top:2rem;
     filter:drop-shadow(5px 15px 10px rgba(var(--primary-rgb),0.3)) drop-shadow(5px -15px 10px rgba(var(--primary-rgb), 0.5));
     border-radius: 20px;
