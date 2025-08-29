@@ -50,15 +50,17 @@ export default function Navbar() {
           <Link to="/features" className="block hover:text-indigo-600 transition-colors">
             Features
           </Link>
-          <a href="#about" className="block hover:text-indigo-600 transition-colors">
+          <Link to="/about" className="block hover:text-indigo-600 transition-colors">
             About
-          </a>
-          <a href="#contact" className="block hover:text-indigo-600 transition-colors">
+          </Link>
+          <Link to="/contact" className="block hover:text-indigo-600 transition-colors">
             Contact
-          </a>
+          </Link>
+          <Link to ="/">
           <button className="w-full px-4 py-2 rounded-xl bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700 transition">
             Get Started
           </button>
+          </Link>
         </div>
       )}
     </header>

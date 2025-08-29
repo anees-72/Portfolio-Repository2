@@ -1,6 +1,6 @@
-import api from './api';
+import axios from "axios";
 
 export const sendContactForm = async (formData) => {
-    const response = await api.post('/api/contact', formData);
+    const response = await axios.post('/api/contact', formData);
     return response.data;
 }

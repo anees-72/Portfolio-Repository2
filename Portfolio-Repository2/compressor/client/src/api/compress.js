@@ -1,10 +1,10 @@
-import api from './api';
+import axios from "axios";
 
 export const sendFile = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await api.post("/api/compress", formData,{
+  const res = await axios.post("/api/compress", formData,{
     headers: {"Content-Type" : "multipart/form-data"},
     responseType: 'blob'
   })
