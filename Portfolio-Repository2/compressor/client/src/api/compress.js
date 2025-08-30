@@ -4,7 +4,7 @@ export const sendFile = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
 
-  const res = await axios.post("https://orange-engine-4jg45v6xqw4924r7-3000.app.github.dev/compress", formData,{
+  const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/compress`, formData,{
     headers: {"Content-Type" : "multipart/form-data"},
     responseType: 'blob'
   })
