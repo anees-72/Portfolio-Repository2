@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X , Shrink} from "lucide-react";
 import {Link} from 'react-router-dom';
 
 export default function Navbar() {
@@ -10,6 +10,7 @@ export default function Navbar() {
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         {/* Logo */}
         <h1 className="text-2xl font-extrabold tracking-tight text-indigo-600">
+          <Shrink className="inline w-7 h-7 mr-2 text-indigo-600" />
           MRA <span className="text-slate-800">Compressor</span>
         </h1>
 
