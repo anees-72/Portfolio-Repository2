@@ -10,7 +10,12 @@ export default function Features() {
     },
     {
       icon: <FileText className="w-8 h-8 text-indigo-600" />,
-      title: "PDF Compression",
+      title: "PDF Compression ",
+      tag: (
+        <>
+           <span className="text-lg absolute top-2 right-3 text-red-500 font-semibold">Beta</span>
+        </>
+      ),
       desc: "Compress PDFs for faster sharing while keeping formatting intact.",
     },
     {
@@ -41,8 +46,9 @@ export default function Features() {
           {features.map((f, idx) => (
             <div
               key={idx}
-              className="flex flex-col items-center p-6 bg-white shadow-md rounded-2xl hover:shadow-lg transition"
+              className="relative flex flex-col items-center p-6 bg-white shadow-md rounded-2xl hover:shadow-lg transition"
             >
+              {f.tag? f.tag: <></>}
               {f.icon}
               <h3 className="text-xl font-semibold text-slate-800 mt-4">{f.title}</h3>
               <p className="text-slate-600 mt-2">{f.desc}</p>

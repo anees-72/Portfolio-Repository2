@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Upload, File } from "lucide-react";
-import { sendFile } from "../api/compress";
+import { compressFile } from "../utilities/compressFile";
 
 export default function Home() {
   const [file, setFile] = useState(null);
@@ -56,16 +56,13 @@ export default function Home() {
 
 
     try {
-      const blob = await sendFile(file);
+      const blob = await compressFile(file);
       const url = URL.createObjectURL(blob);
       setDownloadUrl(url);
       setCompressedSize((blob.size / 1024).toFixed(2));
       setShowModal(true);
     } catch (err) {
       console.error(err);
-      if(err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      }else
       setError(err.message || "Compression failed, try again.");
     } finally {
       setLoading(false);

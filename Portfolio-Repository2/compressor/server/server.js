@@ -1,69 +1,54 @@
 import express from "express";
 import cors from "cors";
-import fs from "fs";
-import path from "path";
-import os from "os";
-import multer from "multer";
-import sharp from "sharp";
-import { exec } from "child_process";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = 3000;
-const upload = multer({ dest: "/tmp" });
-
-const compressPDF = (inputPath, outputPath) => {
-  return new Promise ((resolve, reject) => {
-    const gsCommand = `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
-      -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${outputPath}" "${inputPath}"`;
-    exec(gsCommand, (error) => {
-      if (error) {return reject(error);}
-      resolve();
-    })
-  })
-}
-app.post("/compress", upload.single("file"), async (req, res) => {
-  try {
-    const file = req.file;
-    if (!file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
-    }
-
-    const ext = path.extname(file.originalname).toLowerCase();
-    const inputPath = file.path;
-    const outputPath = path.join(os.tmpdir(), `compressed-${Date.now()}-${file.originalname}`);
-
-    if ([".jpg", ".jpeg", ".png"].includes(ext)) {
-      await sharp(inputPath).jpeg({ quality: 60, mozjpeg: true }).toFile(outputPath);
-    } else if (ext === ".pdf") {
-      await compressPDF(inputPath, outputPath);
-    } else {
-      return res.status(400).json({ success: false, message: "Unsupported file type" });
-    }
-
-    res.setHeader("Content-Disposition", `attachment; filename=compressed-${file.originalname}`);
-    res.send(fs.readFileSync(outputPath));
-
-    
-    res.on("finish", () => {
-      try {
-        fs.unlinkSync(inputPath);
-        fs.unlinkSync(outputPath);
-      } catch (err) {
-        console.error("Cleanup error:", err);
-      }
-    });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ success: false, message: "Compression failed" });
-  }
-});
-
 
 app.get("/", (req, res) => {
-    res.send("Oh! Hello there! You reached the wrong place : Visit https://mracompressor.vercel.app for the website");
-})
+  res.send(`
+    <html>
+      <head>
+        <title>MRA Compressor</title>
+        <style>
+          body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9fafb;
+            color: #1e293b; 
+            font-family: Arial, sans-serif;
+            text-align: center;
+          }
+          a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4f46e5; 
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+          }
+          a:hover {
+            background-color: #4338ca;
+          }
+        </style>
+      </head>
+      <body>
+        <div>
+          <h1>Oh! Hello there!</h1>
+          <p>Oops! You’ve reached the wrong place. Head over to the website to compress your files quickly and securely.</p>
+          <a href="https://mracompressor.vercel.app">Go to MRA Compressor</a>
+        </div>
+      </body>
+    </html>
+  `);
+});
+
 app.post("/contact", (req,res) => {
     const {name, email, message} = req.body;
     if(!name || !email || !message) {
