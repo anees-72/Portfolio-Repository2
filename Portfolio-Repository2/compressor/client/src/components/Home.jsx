@@ -39,7 +39,11 @@ export default function Home() {
     setLoading(true);
     setProgress(0);
     setError(null);
-
+    const sizeInMB = file.size / (1024*1024);
+    let widthInterval = 300;
+    if (sizeInMB > 3.5)  widthInterval=500;
+    else if (sizeInMB < 2.5) widthInterval =250;
+    else if (sizeInMB > 6) widthInterval=600;
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -48,7 +52,8 @@ export default function Home() {
         }
         return prev + 5;
       });
-    }, 350);
+    }, widthInterval);
+
 
     try {
       const blob = await sendFile(file);
@@ -58,6 +63,9 @@ export default function Home() {
       setShowModal(true);
     } catch (err) {
       console.error(err);
+      if(err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      }else
       setError(err.message || "Compression failed, try again.");
     } finally {
       setLoading(false);
@@ -75,7 +83,7 @@ export default function Home() {
         <span className="text-indigo-600 font-semibold">Malik Anees</span>.
       </p>
 
-      {/* Upload Box */}
+      
       <div
         className={`cursor-pointer flex flex-col items-center justify-center w-80 h-40 border-2 border-dashed rounded-2xl bg-white shadow-md transition ${
           isDragging ? "border-indigo-600 bg-indigo-50" : "border-indigo-400"
@@ -113,12 +121,12 @@ export default function Home() {
         />
       </div>
 
-      {/* Supported types info */}
+      
       <p className="text-slate-500 text-sm mt-2">
         Supported file types: <span className="font-medium">JPG, PNG, PDF</span>
       </p>
 
-      {/* Error Message */}
+      
       {error && (
         <div className="mt-4 text-red-600 font-medium">
           ⚠️ {error}
@@ -164,7 +172,7 @@ export default function Home() {
         <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-2xl shadow-lg w-96 text-center">
             <h3 className="text-xl font-bold text-slate-800 mb-2">
-              Compression Successful 🎉
+              Compression Successful 
             </h3>
             <p className="text-slate-600 mb-4">
               Your file has been compressed successfully.

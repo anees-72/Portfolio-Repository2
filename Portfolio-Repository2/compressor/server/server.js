@@ -5,14 +5,24 @@ import path from "path";
 import os from "os";
 import multer from "multer";
 import sharp from "sharp";
-import { PDFDocument } from "pdf-lib";
+import { exec } from "child_process";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 const PORT = 3000;
-const upload = multer({ dest: os.tmpdir() });
+const upload = multer({ dest: "/tmp" });
 
+const compressPDF = (inputPath, outputPath) => {
+  return new Promise ((resolve, reject) => {
+    const gsCommand = `gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen \
+      -dNOPAUSE -dQUIET -dBATCH -sOutputFile="${outputPath}" "${inputPath}"`;
+    exec(gsCommand, (error) => {
+      if (error) {return reject(error);}
+      resolve();
+    })
+  })
+}
 app.post("/compress", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
@@ -27,11 +37,7 @@ app.post("/compress", upload.single("file"), async (req, res) => {
     if ([".jpg", ".jpeg", ".png"].includes(ext)) {
       await sharp(inputPath).jpeg({ quality: 60, mozjpeg: true }).toFile(outputPath);
     } else if (ext === ".pdf") {
-      const pdfBytes = fs.readFileSync(inputPath);
-      const pdfDoc = await PDFDocument.load(pdfBytes);
-      pdfDoc.setTitle("");
-      const compressedPdf = await pdfDoc.save();
-      fs.writeFileSync(outputPath, compressedPdf);
+      await compressPDF(inputPath, outputPath);
     } else {
       return res.status(400).json({ success: false, message: "Unsupported file type" });
     }
