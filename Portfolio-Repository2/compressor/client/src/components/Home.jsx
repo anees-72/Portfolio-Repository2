@@ -72,12 +72,12 @@ export default function Home() {
 
   return (
     <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-12 bg-gray-50">
-      <h2 className="text-4xl font-extrabold text-slate-800 mb-4">
-        Compress Images & Files Instantly
+      <h2 className="text-4xl font-extrabold text-slate-900 mb-4">
+      Compress Your Files Intantly and Securely
       </h2>
       <p className="text-slate-600 mb-6 max-w-xl">
-        Fast, secure, and free file compression. Save storage space and share files quicker — developed by{" "}
-        <span className="text-indigo-600 font-semibold">Malik Anees</span>.
+      Save storage space, share files faster, and stay protected. 
+      Your files never leave your device — <span className="text-indigo-600 font-semibold">fast, secure, and free.</span>
       </p>
 
       
