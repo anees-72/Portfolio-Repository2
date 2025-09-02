@@ -47,6 +47,7 @@ export default function Contact() {
             <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
             <input
               type="text"
+              name="name"
               placeholder="Your Name"
               className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-emerald-400 focus:outline-none"
             />
@@ -55,6 +56,7 @@ export default function Contact() {
             <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
             <input
               type="email"
+              name="email"
               placeholder="you@example.com"
               className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-emerald-400 focus:outline-none"
             />
@@ -63,6 +65,7 @@ export default function Contact() {
             <label className="block text-sm font-medium text-gray-300 mb-2">Message</label>
             <textarea
               rows="4"
+              name="message"
               placeholder="Write your message..."
               className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:ring-2 focus:ring-emerald-400 focus:outline-none"
             />
