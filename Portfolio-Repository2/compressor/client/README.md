@@ -1,12 +1,28 @@
-# React + Vite
+# MRA Image Compressor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[MRA Image Compressor](https://mracompressor.vercel.app/image-compressor) is a **free image compressor online** that lets you **reduce JPG, PNG, and WebP file sizes instantly** — all within your browser. It’s **fast, secure, and privacy-focused**, with **no uploads** and **no quality loss**.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- **100% Client-Side Compression:** Your images never leave your device.  
+- **Fast & Secure:** Optimize images instantly without servers or tracking.  
+- **Multi-Format Support:** Compress **JPG**, **PNG**, and **WebP** effortlessly.  
+- **Free Forever:** Completely free with no hidden limits or accounts required.  
+- **Privacy First:** Compression happens locally in your browser for total security.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 💡 Why Use Image Compression?
+Large, unoptimized images can **slow down your website**, increase bounce rate, and negatively impact SEO.  
+Using a **free image compressor** like MRA helps you:  
+- Improve website loading speed  
+- Enhance **Core Web Vitals**  
+- Boost **search engine rankings**  
+- Deliver a smoother user experience  
 
-## Expanding the ESLint configuration
+## 🔗 Try It Now
+👉 **[Compress images online for free](https://mracompressor.vercel.app/image-compressor)** — reduce image size without losing quality using our fast and secure image compression tool.  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧠 Learn More
+Explore more on our [blog](https://mracompressor.vercel.app/blogs) — discover tips on **image optimization**, **SEO performance**, and **website speed improvements**.
+
+---
+
+
